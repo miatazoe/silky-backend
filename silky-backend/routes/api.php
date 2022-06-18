@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('auth')->group(function () {
-    Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
-});
+Route::post('/login', [LoginController::class, 'login']);
+
