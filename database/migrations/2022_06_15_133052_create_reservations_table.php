@@ -14,18 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->bigIncrements('reservation_id');
+            $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')
-                  ->references('product_id')
-                  ->on('products');
+            $table->foreignId('product_id')->constrained('products');
             $table->datetime('start_time');
             $table->datetime('end_time');
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')
-                  ->references('admin_id')
-                  ->on('admins');
+            $table->foreignId('responder_id')->constrained('users');
             $table->string('remark');
             $table->timestamps();
         });

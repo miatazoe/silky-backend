@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,11 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(["middleware" => ["auth:sanctum"]], function () {
+    Route::get("/products", [ProductController::class, "index"]);
 });
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::post("/login", [LoginController::class, "login"]);
+Route::post("/logout", [LoginController::class, "logout"]);
+Route::post("/register", [LoginController::class, "register"]);
 

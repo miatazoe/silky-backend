@@ -13,16 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->bigIncrements('product_id');
+        Schema::create('user_types', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->decimal('price');
-            $table->unsignedBigInteger('product_type_id');
-            $table->foreign('product_type_id')
-                  ->references('product_type_id')
-                  ->on('product_types');
-            $table->datetime('duration');
-            $table->string('description');
             $table->timestamps();
         });
     }
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('user_types');
     }
 };
