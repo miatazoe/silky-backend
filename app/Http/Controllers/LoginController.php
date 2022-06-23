@@ -36,37 +36,44 @@ class LoginController extends Controller
         return response()->json('User Not Found.', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    public function register(Request $request)
-    {
-        /** @var Illuminate\Validation\Validator $validator */
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+    // public function register(Request $request)
+    // {
+    //     /** @var Illuminate\Validation\Validator $validator */
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required',
+    //         'email' => 'required|email',
+    //         'password' => 'required'
+    //     ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->messages(), Response::HTTP_UNPROCESSABLE_ENTITY);
+    //     }
 
-        $user = User::create([
-            'name' =>  $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    //     $user = User::create([
+    //         'name' =>  $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //     ]);
 
-        $json = [
-            'data' => $user,
-            'message' => 'User registration completed',
-            'error' => ''
-        ];
+    //     $json = [
+    //         'data' => $user,
+    //         'message' => 'User registration completed',
+    //         'error' => ''
+    //     ];
 
-        return response()->json($json, Response::HTTP_OK);
-    }
+    //     return response()->json($json, Response::HTTP_OK);
+    // }
 
     public function logout()
     {
         Auth::logout();
         return response()->json(['message' => 'Logged out'], 200);
+    }
+
+    public function me(Request $request)
+    {
+        $user = $request->user();
+        logger('test',['me:user' => $user]);
+        return response()->json($user, 200);
     }
 }

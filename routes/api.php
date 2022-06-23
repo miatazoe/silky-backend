@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\ProductController;
 
 Route::group(["middleware" => ["auth:sanctum"]], function () {
     Route::get("/products", [ProductController::class, "index"]);
+    Route::get("/reservations", [ReservationController::class, "index"]);
+    Route::post("/reservations/store", [ReservationController::class, "store"]);
+    Route::get("/me", [LoginController::class, "me"]);
 });
 
 Route::post("/login", [LoginController::class, "login"]);
